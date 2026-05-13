@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Polka — Exposición Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5EFE0;
+      --warm-white: #FAF7F2;
+      --ink: #1A1208;
+      --burgundy: #7B1E2E;
+      --gold: #C8922A;
+      --gold-light: #E8B84B;
+      --rust: #B84B2A;
+      --sage: #5B7B5E;
+      --midnight: #0D1B2A;
+      --paper: #EDE5D0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Libre Baskerville', serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(245, 239, 224, 0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200, 146, 42, 0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--burgundy);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover { opacity: 1; color: var(--burgundy); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      background: var(--midnight);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 60%, rgba(123,30,46,0.4) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 20%, rgba(200,146,42,0.15) 0%, transparent 50%);
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 0.9;
+      color: var(--cream);
+      position: relative;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .hero-title em {
+      display: block;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      margin-top: 2rem;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(245,239,224,0.6);
+      max-width: 28ch;
+      position: relative;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-meta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 2.5rem;
+      position: relative;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+
+    .meta-item { text-align: left; }
+
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.7;
+    }
+
+    .meta-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    /* Dancing figures SVG area */
+    .hero-right {
+      background: var(--burgundy);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,146,42,0.2) 0%, transparent 70%);
+    }
+
+    .big-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14rem, 25vw, 22rem);
+      font-weight: 900;
+      font-style: italic;
+      color: rgba(245,239,224,0.06);
+      position: absolute;
+      line-height: 1;
+      user-select: none;
+      animation: slowSpin 20s linear infinite;
+    }
+
+    .notes-float {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.15;
+      animation: floatNote 6s ease-in-out infinite;
+      color: var(--gold-light);
+    }
+
+    .notes-float:nth-child(2) { animation-delay: -2s; top: 20%; left: 15%; font-size: 1.5rem; }
+    .notes-float:nth-child(3) { animation-delay: -4s; top: 70%; left: 70%; font-size: 2.5rem; }
+    .notes-float:nth-child(4) { animation-delay: -1s; top: 50%; left: 30%; font-size: 1rem; }
+    .notes-float:nth-child(5) { animation-delay: -3s; top: 30%; left: 60%; font-size: 3rem; }
+    .notes-float:nth-child(6) { animation-delay: -5s; top: 80%; left: 20%; font-size: 1.8rem; }
+
+    .dance-graphic {
+      position: relative;
+      z-index: 2;
+      animation: sway 3s ease-in-out infinite;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,239,224,0.4);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 3rem;
+      background: linear-gradient(to bottom, rgba(200,146,42,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── SECTIONS ── */
+    section { position: relative; }
+
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--burgundy);
+      opacity: 0.6;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.3;
+      max-width: 4rem;
+    }
+
+    /* ── ORIGEN SECTION ── */
+    .origen-section {
+      background: var(--warm-white);
+    }
+
+    .origen-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .big-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .big-heading em {
+      font-style: italic;
+      color: var(--burgundy);
+    }
+
+    .body-text {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: rgba(26,18,8,0.75);
+      margin-top: 1.5rem;
+    }
+
+    .pull-quote {
+      border-left: 3px solid var(--gold);
+      padding: 1rem 0 1rem 2rem;
+      margin: 3rem 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--burgundy);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 5rem 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(200,146,42,0.2);
+      position: relative;
+    }
+
+    .timeline-year {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .timeline-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: rgba(26,18,8,0.7);
+    }
+
+    .timeline-text strong {
+      display: block;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    /* ── MÚSICA SECTION ── */
+    .musica-section {
+      background: var(--midnight);
+      color: var(--cream);
+    }
+
+    .musica-section .section-label { color: var(--gold); }
+
+    .musica-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .musica-section .big-heading { color: var(--cream); }
+    .musica-section .big-heading em { color: var(--gold); }
+    .musica-section .body-text { color: rgba(245,239,224,0.65); }
+    .musica-section .pull-quote { color: var(--gold-light); border-color: var(--gold); }
+
+    .instruments-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .instrument-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+
+    .instrument-card:hover {
+      background: rgba(200,146,42,0.08);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .instrument-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+    .instrument-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .instrument-desc {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: rgba(245,239,224,0.5);
+      margin-top: 0.3rem;
+    }
+
+    .rhythm-visual {
+      margin-top: 3rem;
+      background: rgba(200,146,42,0.08);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 0.5rem;
+      padding: 2rem;
+    }
+
+    .rhythm-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .rhythm-bars {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-end;
+      height: 4rem;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 2px;
+      animation: barPulse 0.9s ease-in-out infinite alternate;
+    }
+
+    .bar.strong {
+      background: var(--gold);
+      animation-duration: 0.45s;
+    }
+
+    .bar.weak {
+      background: rgba(200,146,42,0.35);
+    }
+
+    .bar:nth-child(1) { animation-delay: 0s; }
+    .bar:nth-child(2) { animation-delay: 0.45s; }
+    .bar:nth-child(3) { animation-delay: 0.9s; }
+    .bar:nth-child(4) { animation-delay: 1.35s; }
+
+    .compas-label {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .compas-label span {
+      flex: 1;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(245,239,224,0.4);
+    }
+
+    .compas-label span.beat-1 { color: var(--gold); font-weight: 500; }
+
+    /* ── BAILE SECTION ── */
+    .baile-section {
+      background: var(--paper);
+    }
+
+    .baile-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .steps-visual {
+      position: relative;
+    }
+
+    .dance-circle {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 2px dashed rgba(123,30,46,0.3);
+      margin: 0 auto;
+      position: relative;
+      animation: slowSpin 12s linear infinite;
+    }
+
+    .step-dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--burgundy);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .step-dot::after {
+      content: attr(data-label);
+      position: absolute;
+      white-space: nowrap;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--burgundy);
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .inner-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,146,42,0.4);
+      animation: slowSpin 8s linear infinite reverse;
+    }
+
+    .dance-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      animation: sway 2s ease-in-out infinite;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      opacity: 0.5;
+      line-height: 1;
+      min-width: 2.5rem;
+    }
+
+    .step-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .step-text p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(26,18,8,0.65);
+    }
+
+    /* ── EXPANSION SECTION ── */
+    .expansion-section {
+      background: var(--cream);
+    }
+
+    .map-visual {
+      margin: 4rem 0;
+      background: var(--midnight);
+      border-radius: 1rem;
+      padding: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(123,30,46,0.3), transparent 60%),
+                  radial-gradient(ellipse at 70% 50%, rgba(200,146,42,0.15), transparent 50%);
+    }
+
+    .map-route {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .map-city {
+      text-align: center;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .city-dot {
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      border-radius: 50%;
+      margin: 0 auto 0.5rem;
+      box-shadow: 0 0 12px rgba(200,146,42,0.5);
+    }
+
+    .city-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .city-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .route-line {
+      flex: 0.3;
+      height: 1px;
+      background: linear-gradient(to right, var(--gold), rgba(200,146,42,0.3));
+      position: relative;
+      min-width: 30px;
+    }
+
+    .route-line::after {
+      content: '→';
+      position: absolute;
+      right: -8px;
+      top: -10px;
+      color: var(--gold);
+      font-size: 0.8rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .info-card {
+      background: var(--warm-white);
+      border: 1px solid rgba(200,146,42,0.2);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(26,18,8,0.1);
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--burgundy), var(--gold));
+    }
+
+    .card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--ink);
+    }
+
+    .card-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(26,18,8,0.65);
+    }
+
+    /* ── NORTEÑA SECTION ── */
+    .nortena-section {
+      background: var(--burgundy);
+      color: var(--cream);
+    }
+
+    .nortena-section .section-label { color: var(--gold-light); }
+    .nortena-section .big-heading { color: var(--cream); }
+    .nortena-section .big-heading em { color: var(--gold-light); }
+    .nortena-section .body-text { color: rgba(245,239,224,0.7); }
+    .nortena-section .pull-quote {
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+
+    .nortena-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .states-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    .state-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.2rem;
+      background: rgba(245,239,224,0.08);
+      border: 1px solid rgba(245,239,224,0.2);
+      border-radius: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--cream);
+      transition: all 0.3s;
+    }
+
+    .state-tag:hover {
+      background: rgba(200,146,42,0.2);
+      border-color: var(--gold);
+    }
+
+    .diff-list {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .diff-item {
+      padding: 1.2rem 1.5rem;
+      border-radius: 0.5rem;
+      background: rgba(245,239,224,0.05);
+      border-left: 3px solid var(--gold-light);
+    }
+
+    .diff-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--gold-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .diff-text {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: rgba(245,239,224,0.6);
+    }
+
+    /* ── VESTIMENTA SECTION ── */
+    .vestimenta-section {
+      background: var(--warm-white);
+    }
+
+    .vestimenta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .outfit-card {
+      background: var(--cream);
+      border-radius: 1rem;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      border: 1px solid rgba(200,146,42,0.2);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .outfit-card:hover { transform: translateY(-4px); }
+
+    .outfit-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--burgundy), var(--gold));
+    }
+
+    .outfit-figure {
+      font-size: 5rem;
+      margin-bottom: 1.5rem;
+      animation: sway 3s ease-in-out infinite;
+    }
+
+    .outfit-card:nth-child(2) .outfit-figure {
+      animation-delay: -1.5s;
+    }
+
+    .outfit-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--burgundy);
+    }
+
+    .outfit-items {
+      list-style: none;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .outfit-items li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: rgba(26,18,8,0.7);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .outfit-items li::before {
+      content: '◆';
+      color: var(--gold);
+      font-size: 0.5rem;
+      margin-top: 0.4rem;
+      flex-shrink: 0;
+    }
+
+    /* ── CURIOSIDADES SECTION ── */
+    .curiosidades-section {
+      background: var(--midnight);
+      color: var(--cream);
+    }
+
+    .curiosidades-section .section-label { color: var(--gold); }
+
+    .curiosidades-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .curiosidad-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(200,146,42,0.15);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .curiosidad-card:hover {
+      background: rgba(200,146,42,0.06);
+      border-color: rgba(200,146,42,0.4);
+    }
+
+    .curiosidad-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(200,146,42,0.2);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .curiosidad-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+
+    .curiosidad-text {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(245,239,224,0.55);
+    }
+
+    /* ── FIGURAS SECTION ── */
+    .figuras-section {
+      background: var(--paper);
+    }
+
+    .figuras-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .figura-card {
+      background: var(--cream);
+      border-radius: 0.5rem;
+      padding: 2rem;
+      border-bottom: 3px solid var(--gold);
+      transition: transform 0.3s;
+    }
+
+    .figura-card:hover { transform: translateY(-3px); }
+
+    .figura-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+    .figura-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+    }
+
+    .figura-country {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--burgundy);
+      margin-bottom: 0.8rem;
+    }
+
+    .figura-desc {
+      font-size: 0.82rem;
+      line-height: 1.65;
+      color: rgba(26,18,8,0.65);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: 'POLKA';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 15rem;
+      font-weight: 900;
+      font-style: italic;
+      color: rgba(255,255,255,0.02);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 2rem;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-text {
+      font-size: 0.85rem;
+      color: rgba(245,239,224,0.4);
+      line-height: 1.8;
+    }
+
+    .footer-divider {
+      width: 3rem;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem auto;
+      opacity: 0.4;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slowSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-3deg); }
+      50%       { transform: rotate(3deg); }
+    }
+
+    @keyframes floatNote {
+      0%, 100% { transform: translateY(0) rotate(-5deg); opacity: 0.15; }
+      50%       { transform: translateY(-20px) rotate(5deg); opacity: 0.25; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50%       { opacity: 0.7; transform: scaleY(1.2); }
+    }
+
+    @keyframes barPulse {
+      from { height: 30%; }
+      to   { height: 90%; }
+    }
+
+    /* Intersection Observer fade-in */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 2rem 3rem; }
+      .hero-right { min-height: 40vh; }
+      .origen-grid, .musica-grid, .baile-grid, .nortena-grid, .vestimenta-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .cards-grid, .curiosidades-grid, .figuras-grid { grid-template-columns: 1fr; }
+      .map-route { gap: 0.5rem; }
+      .section-inner { padding: 4rem 1.5rem; }
+      .instruments-grid { grid-template-columns: 1fr; }
+      .dance-circle { width: 220px; height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">La Polka</div>
+    <ul class="nav-links">
+      <li><a href="#origen">Origen</a></li>
+      <li><a href="#musica">Música</a></li>
+      <li><a href="#baile">Baile</a></li>
+      <li><a href="#expansion">Expansión</a></li>
+      <li><a href="#nortena">Norteña</a></li>
+      <li><a href="#vestimenta">Vestimenta</a></li>
+      <li><a href="#curiosidades">Curiosidades</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Exposición Digital — 2025</div>
+      <h1 class="hero-title">
+        La<br>
+        <em>Polka</em>
+      </h1>
+      <p class="hero-subtitle">Un viaje a través del ritmo más contagioso de Europa y su transformación en las llanuras del norte de México.</p>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-label">Origen</div>
+          <div class="meta-value">Bohemia</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Época</div>
+          <div class="meta-value">1830s</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Compás</div>
+          <div class="meta-value">2 / 4</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="big-letter">P</div>
+      <span class="notes-float">♩</span>
+      <span class="notes-float">♪</span>
+      <span class="notes-float">♫</span>
+      <span class="notes-float">♬</span>
+      <span class="notes-float">♩</span>
+      <span class="notes-float">♪</span>
+      <div class="dance-graphic">
+        <svg width="220" height="280" viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Woman -->
+          <circle cx="80" cy="40" r="18" fill="rgba(245,239,224,0.9)"/>
+          <path d="M80 58 Q60 90 50 130 Q80 140 110 130 Q100 90 80 58Z" fill="rgba(184,75,42,0.85)"/>
+          <path d="M50 130 Q30 170 40 200 Q60 195 80 200 Q80 165 80 130Z" fill="rgba(123,30,46,0.9)"/>
+          <path d="M110 130 Q130 170 120 200 Q100 195 80 200 Q80 165 80 130Z" fill="rgba(123,30,46,0.9)"/>
+          <!-- Woman's arms -->
+          <path d="M60 80 Q40 100 55 115" stroke="rgba(245,239,224,0.8)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M100 80 Q120 100 140 90" stroke="rgba(245,239,224,0.8)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <!-- Man -->
+          <circle cx="160" cy="40" r="18" fill="rgba(245,239,224,0.9)"/>
+          <rect x="140" y="58" width="40" height="55" rx="4" fill="rgba(13,27,42,0.9)"/>
+          <rect x="145" y="113" width="18" height="60" rx="3" fill="rgba(26,18,8,0.85)"/>
+          <rect x="163" y="113" width="18" height="60" rx="3" fill="rgba(26,18,8,0.85)"/>
+          <!-- Man's arms -->
+          <path d="M140 80 Q118 95 115 115" stroke="rgba(245,239,224,0.7)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M180 80 Q200 95 198 115" stroke="rgba(245,239,224,0.7)" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <!-- Connecting hands -->
+          <circle cx="115" cy="115" r="5" fill="rgba(200,146,42,0.9)"/>
+          <circle cx="140" cy="90" r="5" fill="rgba(200,146,42,0.9)"/>
+          <!-- Musical notes around -->
+          <text x="20" y="50" fill="rgba(200,146,42,0.4)" font-size="16">♪</text>
+          <text x="185" y="30" fill="rgba(200,146,42,0.3)" font-size="20">♫</text>
+          <text x="10" y="180" fill="rgba(200,146,42,0.3)" font-size="14">♩</text>
+          <text x="195" y="160" fill="rgba(200,146,42,0.4)" font-size="18">♬</text>
+          <!-- Ground line -->
+          <line x1="20" y1="200" x2="200" y2="200" stroke="rgba(200,146,42,0.3)" stroke-width="1" stroke-dasharray="4 4"/>
+          <!-- Boots / feet -->
+          <ellipse cx="58" cy="203" rx="14" ry="7" fill="rgba(26,18,8,0.7)"/>
+          <ellipse cx="82" cy="201" rx="12" ry="6" fill="rgba(26,18,8,0.6)"/>
+          <ellipse cx="150" cy="203" rx="13" ry="7" fill="rgba(26,18,8,0.7)"/>
+          <ellipse cx="174" cy="201" rx="12" ry="6" fill="rgba(26,18,8,0.6)"/>
+          <!-- Decorative swirl below -->
+          <text x="70" y="250" fill="rgba(200,146,42,0.2)" font-size="40" font-style="italic" font-family="Georgia">~</text>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+      Desplazarse
+    </div>
+  </section>
+
+  <!-- ORIGEN -->
+  <section class="origen-section" id="origen">
+    <div class="section-inner">
+      <div class="section-label">01 — Origen</div>
+      <div class="origen-grid reveal">
+        <div>
+          <h2 class="big-heading">Nació en los<br><em>campos de Bohemia</em></h2>
+          <p class="body-text">
+            La polka emergió en la Bohemia de los años 1830 —territorio que hoy ocupa la República Checa— como una danza popular de campo que pronto sacudiría los salones de baile de toda Europa. Su nombre proviene probablemente del checo <strong>půlka</strong> ("mitad"), en alusión al característico medio paso que define su coreografía.
+          </p>
+          <p class="body-text">
+            La leyenda cuenta que fue inventada en 1834 por una joven campesina llamada <strong>Anna Slezáková</strong>, en el pueblo de Labská Týnice. El maestro de escuela Josef Neruda la vio bailar y quedó tan fascinado que anotó los pasos y la música, difundiéndola por la región.
+          </p>
+          <div class="pull-quote">
+            "En menos de una década, lo que bailaba una campesina checa se bailaba en los palacios de París."
+          </div>
+          <p class="body-text">
+            Desde sus humildes orígenes, la polka representó algo radical: una danza donde la pareja se abrazaba, giraba sin parar y se miraba de frente —una novedad escandalosa en la época del vals vienés que dominaba los salones aristocráticos.
+          </p>
+        </div>
+        <div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">1834</div>
+              <div class="timeline-text">
+                <strong>Primera aparición</strong>
+                Anna Slezáková baila la polka en Bohemia. Josef Neruda anota los pasos.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1835</div>
+              <div class="timeline-text">
+                <strong>Praga enloquece</strong>
+                Se presenta en el Teatro de los Estamentos. La nobleza checa la adopta inmediatamente.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1840</div>
+              <div class="timeline-text">
+                <strong>La fiebre de París</strong>
+                Raab, un maestro de baile, la lleva a París. En semanas se convierte en una obsesión nacional.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1844</div>
+              <div class="timeline-text">
+                <strong>Conquista Londres</strong>
+                La reina Victoria la baila en el palacio. Europa entera cae rendida.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1850s</div>
+              <div class="timeline-text">
+                <strong>Llega a América</strong>
+                Inmigrantes europeos la traen al continente americano; arraiga con fuerza en Texas y el norte de México.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Hoy</div>
+              <div class="timeline-text">
+                <strong>Patrimonio vivo</strong>
+                Sigue bailándose en festivales de República Checa, Polonia, Texas, Nuevo León y toda América Latina.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÚSICA -->
+  <section class="musica-section" id="musica">
+    <div class="section-inner">
+      <div class="section-label">02 — El Género Musical</div>
+      <div class="musica-grid reveal">
+        <div>
+          <h2 class="big-heading">El ritmo que<br><em>no puedes ignorar</em></h2>
+          <p class="body-text">
+            La polka se construye sobre un compás binario de <strong>2/4</strong>, rápido y enérgico, con una acentuación característica conocida como <em>oom-pah</em>: el primer tiempo recibe el pulso fuerte de los instrumentos de bajo (tuba o contrabajo), mientras el segundo tiempo responde con los instrumentos de viento o acordeón.
+          </p>
+          <p class="body-text">
+            Su estructura suele ser <strong>ternaria</strong> con frases regulares de 8 compases: introducción, melodía A, melodía B, y repetición con variaciones. Esta predictibilidad armónica es justamente lo que la hace tan bailable e irresistible.
+          </p>
+          <div class="pull-quote">
+            El "oom-pah" es la firma sonora de la polka — como un corazón que late a dos tiempos.
+          </div>
+
+          <div class="rhythm-visual">
+            <div class="rhythm-label">Visualización del compás 2/4</div>
+            <div class="rhythm-bars">
+              <div class="bar strong" style="height:80%"></div>
+              <div class="bar weak" style="height:40%"></div>
+              <div class="bar strong" style="height:80%"></div>
+              <div class="bar weak" style="height:40%"></div>
+              <div class="bar strong" style="height:80%"></div>
+              <div class="bar weak" style="height:40%"></div>
+              <div class="bar strong" style="height:80%"></div>
+              <div class="bar weak" style="height:40%"></div>
+            </div>
+            <div class="compas-label">
+              <span class="beat-1">OOM</span>
+              <span>pah</span>
+              <span class="beat-1">OOM</span>
+              <span>pah</span>
+              <span class="beat-1">OOM</span>
+              <span>pah</span>
+              <span class="beat-1">OOM</span>
+              <span>pah</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="instruments-grid">
+            <div class="instrument-card">
+              <div class="instrument-icon">🪗</div>
+              <div class="instrument-name">Acordeón</div>
+              <div class="instrument-desc">El alma de la polka, especialmente en la versión norteña. Sus bajos marcan el pulso y la melodía vuela entre sus teclas.</div>
+            </div>
+            <div class="instrument-card">
+              <div class="instrument-icon">🎺</div>
+              <div class="instrument-name">Trompeta</div>
+              <div class="instrument-desc">Aporta brillo y energía. En las bandas centroeuropeas lidera la melodía principal con fanfarria.</div>
+            </div>
+            <div class="instrument-card">
+              <div class="instrument-icon">🎷</div>
+              <div class="instrument-name">Clarinete</div>
+              <div class="instrument-desc">Voz lírica de la polka bohemia. Sus ornamentos y trinos le dan carácter folclórico inconfundible.</div>
+            </div>
+            <div class="instrument-card">
+              <div class="instrument-icon">🎸</div>
+              <div class="instrument-name">Bajo Sexto</div>
+              <div class="instrument-desc">Exclusivo de la polka norteña mexicana. Instrumento de 12 cuerdas que reemplaza a la tuba con ritmo percusivo.</div>
+            </div>
+            <div class="instrument-card">
+              <div class="instrument-icon">🥁</div>
+              <div class="instrument-name">Batería / Caja</div>
+              <div class="instrument-desc">Marca el "pah" del oom-pah. En la versión norteña se toca más seco y cortado para un zapateado más efectivo.</div>
+            </div>
+            <div class="instrument-card">
+              <div class="instrument-icon">🎻</div>
+              <div class="instrument-name">Tuba / Contrabajo</div>
+              <div class="instrument-desc">El "oom" de la ecuación rítmica. Da el pulso grave que hace vibrar el pecho en las verbenas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAILE -->
+  <section class="baile-section" id="baile">
+    <div class="section-inner">
+      <div class="section-label">03 — El Baile</div>
+      <div class="baile-grid reveal">
+        <div class="steps-visual">
+          <div class="dance-circle">
+            <div class="step-dot" style="top:10%;left:50%" data-label="Inicio"></div>
+            <div class="step-dot" style="top:30%;left:85%" data-label="Paso derecho"></div>
+            <div class="step-dot" style="top:70%;left:85%" data-label="Salto"></div>
+            <div class="step-dot" style="top:90%;left:50%" data-label="Giro"></div>
+            <div class="step-dot" style="top:70%;left:15%" data-label="Paso izquierdo"></div>
+            <div class="step-dot" style="top:30%;left:15%" data-label="Regreso"></div>
+            <div class="inner-circle"></div>
+            <div class="dance-center">💃🕺</div>
+          </div>
+        </div>
+        <div>
+          <h2 class="big-heading">Energía,<br><em>coqueteo y vuelo</em></h2>
+          <p class="body-text">La polka es una danza de pareja enlazada donde la energía lo es todo. Los bailarines se toman en posición cerrada y ejecutan una secuencia repetitiva de pasos cortos y rápidos con un pequeño salto característico, girando sin cesar alrededor de la pista en sentido antihorario.</p>
+          <ul class="steps-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-text">
+                <strong>El agarre</strong>
+                <p>La pareja se toma en posición cerrada: mano derecha del hombre en la cintura de la mujer, mano izquierda entrelazada al frente. El cuerpo alineado, la mirada al frente.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-text">
+                <strong>El paso básico (oom-pah-pah)</strong>
+                <p>Hop + paso – cierre – paso. El pie libre salta ligeramente y avanza, el pie contrario se cierra, luego avanza nuevamente. Todo en dos tiempos del compás.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-text">
+                <strong>El giro constante</strong>
+                <p>Mientras avanzan por la pista, la pareja gira sobre su propio eje. El hombre guía la dirección; la mujer sigue el movimiento circular con la falda girando como campana.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-text">
+                <strong>El coqueteo</strong>
+                <p>Los bailarines se miran de frente, a diferencia de otras danzas. El contacto visual y la sonrisa son parte esencial de la expresión polkera.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPANSION -->
+  <section class="expansion-section" id="expansion">
+    <div class="section-inner">
+      <div class="section-label">04 — Expansión Mundial</div>
+      <div class="reveal">
+        <h2 class="big-heading">De Praga a las<br><em>tierras norteñas</em></h2>
+        <p class="body-text" style="max-width:60ch; margin-top:1rem;">
+          En poco más de dos décadas, la polka pasó de ser una danza de aldeanos checos a dominar los salones de baile de toda Europa y más tarde cruzar el océano para transformarse en algo completamente nuevo.
+        </p>
+
+        <div class="map-visual">
+          <div class="map-route">
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">Bohemia</div>
+              <div class="city-year">1834</div>
+            </div>
+            <div class="route-line"></div>
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">Praga</div>
+              <div class="city-year">1835</div>
+            </div>
+            <div class="route-line"></div>
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">Viena</div>
+              <div class="city-year">1839</div>
+            </div>
+            <div class="route-line"></div>
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">París</div>
+              <div class="city-year">1840</div>
+            </div>
+            <div class="route-line"></div>
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">Londres</div>
+              <div class="city-year">1844</div>
+            </div>
+            <div class="route-line"></div>
+            <div class="map-city">
+              <div class="city-dot"></div>
+              <div class="city-name">Texas / Norte MX</div>
+              <div class="city-year">1850s</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cards-grid">
+          <div class="info-card">
+            <div class="card-icon">🇨🇿</div>
+            <div class="card-title">Europa Central</div>
+            <div class="card-text">En Polonia se convirtió en la <em>polka mazurka</em>. En Alemania, las bandas de Oktoberfest la adoptaron como himno festivo. En Eslovaquia y Austria forma parte del patrimonio cultural intangible.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-icon">🇧🇷</div>
+            <div class="card-title">América del Sur</div>
+            <div class="card-text">En Brasil los inmigrantes alemanes y polacos la plantaron en Rio Grande do Sul. En Argentina y Uruguay coexistió con el tango en los conventillos porteños. Paraguay la fusionó con la guarania y la arpa paraguaya.</div>
+          </div>
+          <div class="info-card">
+            <div class="card-icon">🇲🇽</div>
+            <div class="card-title">México del Norte</div>
+            <div class="card-text">Llegó a través de la frontera con Texas, introducida por inmigrantes alemanes y checos en Nuevo León, Tamaulipas, Coahuila y Chihuahua. El resultado fue algo completamente propio: la polka norteña.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NORTEÑA -->
+  <section class="nortena-section" id="nortena">
+    <div class="section-inner">
+      <div class="section-label">05 — La Polka Norteña</div>
+      <div class="nortena-grid reveal">
+        <div>
+          <h2 class="big-heading">La polka<br><em>renació en México</em></h2>
+          <p class="body-text">
+            Cuando la polka europea llegó al norte de México, encontró un suelo fértil y músicos con mucho que decir. Los norteños la tomaron, la zarandearon, le pusieron acordeón diatónico, bajo sexto, contrabajo y tarola, y la convirtieron en algo propiamente suyo.
+          </p>
+          <p class="body-text">
+            La <strong>polka norteña</strong> es más rápida, más percusiva y con un zapateado más enérgico que su prima europea. El estilo de baile recuerda a la cabalgata —incluso se le llama "andar a caballo"— con movimientos más verticales y un trabajo de pies más marcado.
+          </p>
+          <div class="pull-quote">
+            "La polka llegó de Europa. La norteña nació aquí."
+          </div>
+          <p class="body-text">
+            Artistas como <strong>Los Cadetes de Linares</strong>, <strong>Los Bravos del Norte</strong> y <strong>Ramón Ayala</strong> la llevaron a su máxima expresión. Hoy es inseparable de la identidad del norteño mexicano y base del conjunto norteño y la banda sinaloense.
+          </p>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:1rem; color: rgba(245,239,224,0.4);">Estados donde arraigó</div>
+          <div class="states-list">
+            <div class="state-tag">🌵 Nuevo León — la cuna de la norteña</div>
+            <div class="state-tag">🤠 Tamaulipas — frontera y ritmo</div>
+            <div class="state-tag">⭐ Chihuahua — tierra de baile y desierto</div>
+            <div class="state-tag">🌾 Coahuila — tradición y conjunto</div>
+            <div class="state-tag">🎸 Texas (EUA) — las "polkas tejanas"</div>
+          </div>
+
+          <div class="section-label" style="margin:2.5rem 0 1rem; color: rgba(245,239,224,0.4);">¿Qué cambió?</div>
+          <div class="diff-list">
+            <div class="diff-item">
+              <div class="diff-title">Instrumentación</div>
+              <div class="diff-text">Acordeón diatónico + bajo sexto reemplazan a la banda de vientos europea. El sonido se vuelve más íntimo y penetrante.</div>
+            </div>
+            <div class="diff-item">
+              <div class="diff-title">Velocidad y carácter</div>
+              <div class="diff-text">El tempo aumenta. El carácter pasa de "festivo y elegante" a "enérgico y retador". El orgullo regional es parte de la danza.</div>
+            </div>
+            <div class="diff-item">
+              <div class="diff-title">El baile</div>
+              <div class="diff-text">Zapateado más pronunciado, movimiento tipo cabalgata, y en las verbenas se añaden improvisaciones y retos entre parejas.</div>
+            </div>
+            <div class="diff-item">
+              <div class="diff-title">Las letras</div>
+              <div class="diff-text">La polka europea era instrumental. La norteña canta: amores del desierto, historias de ranchos, corridos y alegría fronteriza.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VESTIMENTA -->
+  <section class="vestimenta-section" id="vestimenta">
+    <div class="section-inner">
+      <div class="section-label">06 — Vestimenta Tradicional</div>
+      <div class="reveal">
+        <h2 class="big-heading">El traje que<br><em>cuenta la historia</em></h2>
+        <p class="body-text" style="max-width:55ch; margin-top:1rem;">
+          La indumentaria de la polka norteña mexicana no es un disfraz: es una declaración de identidad. Cada prenda habla de la vida en el rancho, el trabajo en el campo y la fiesta de comunidad.
+        </p>
+        <div class="vestimenta-grid">
+          <div class="outfit-card">
+            <div class="outfit-figure">💃</div>
+            <div class="outfit-title">La mujer</div>
+            <ul class="outfit-items">
+              <li><strong>Vestido de falda amplia</strong> — De telas brillantes, vivos colores (rojo, verde, amarillo, azul). La falda vuela al girar, creando una imagen icónica.</li>
+              <li><strong>Blusa bordada</strong> — Con motivos florales o geométricos. Las mangas pueden ser cortas o con olán.</li>
+              <li><strong>Botas vaqueras</strong> — De piel genuina, a veces con punta y tacón elevado para el zapateado.</li>
+              <li><strong>Peinado con trenzas</strong> — Adornadas con flores naturales o artificiales y cintas de colores.</li>
+              <li><strong>Tocado floral</strong> — Corona o diadema de flores que enmarca el rostro en la danza.</li>
+              <li><strong>Delantal o cinturón</strong> — A veces bordado con el nombre o región de origen.</li>
+            </ul>
+          </div>
+          <div class="outfit-card">
+            <div class="outfit-figure">🕺</div>
+            <div class="outfit-title">El hombre</div>
+            <ul class="outfit-items">
+              <li><strong>Camisa a cuadros</strong> — El sello del norteño. Mangas largas enrolladas al codo o con botones de nácar. Colores sobrios pero presentes.</li>
+              <li><strong>Mezclilla o pantalón vaquero</strong> — Práctico, resistente, auténtico. El "jean" norteño es símbolo de trabajo y fiesta.</li>
+              <li><strong>Sombrero norteño</strong> — De palma o fieltro. Ala ancha o mediana, copa alta. El sombrero identifica al hombre norteño en cualquier pista.</li>
+              <li><strong>Botas vaqueras</strong> — Con punta fina o cuadrada, tacón de caballería. A veces con bordados o pieles exóticas.</li>
+              <li><strong>Cinturón piteado</strong> — Bordado con hilo de pita (fibra de maguey). Artesanía duranguense por excelencia.</li>
+              <li><strong>Paliacate o pañoleta</strong> — Al cuello, rojo o de colores. Herencia del vaquero mexicano.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURIOSIDADES -->
+  <section class="curiosidades-section" id="curiosidades">
+    <div class="section-inner">
+      <div class="section-label">07 — Curiosidades</div>
+      <div class="reveal">
+        <h2 class="big-heading" style="color:var(--cream)">Lo que quizás<br><em style="color:var(--gold)">no sabías</em></h2>
+        <div class="curiosidades-grid">
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">01</div>
+            <div class="curiosidad-title">¿Un escándalo en 1840?</div>
+            <div class="curiosidad-text">Cuando la polka llegó a París, los críticos morales la tildaron de "indecente" porque los bailarines se abrazaban de frente y giraban hasta el mareo. La Iglesia de varios países europeos intentó prohibirla sin éxito.</div>
+          </div>
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">02</div>
+            <div class="curiosidad-title">Epidemia de polka</div>
+            <div class="curiosidad-text">En 1844, París vivió la "fiebre de la polka": se vendían zapatos para polka, perfume de polka, sombreros de polka. Era literalmente la primera moda viral de la historia antes de internet.</div>
+          </div>
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">03</div>
+            <div class="curiosidad-title">Los lunares "polka dots"</div>
+            <div class="curiosidad-text">El patrón de lunares en inglés se llama "polka dots" justamente por la moda de la polka. Las telas con lunares eran populares en los bailes de polka, y el nombre quedó para siempre.</div>
+          </div>
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">04</div>
+            <div class="curiosidad-title">Inmigrantes checos en Texas</div>
+            <div class="curiosidad-text">En el siglo XIX llegaron miles de inmigrantes checos y alemanes al centro de Texas. Fundaron comunidades como West, Shiner y Schulenburg donde la polka sigue viva hoy. La "Czech-Tex polka" es un género reconocido en EUA.</div>
+          </div>
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">05</div>
+            <div class="curiosidad-title">Smetana y la polka clásica</div>
+            <div class="curiosidad-text">El compositor Bedřich Smetana, padre de la música checa, escribió decenas de polkas para piano y las incorporó a su ópera "La novia vendida" (1866). Elevó la danza popular al nivel de arte sinfónico.</div>
+          </div>
+          <div class="curiosidad-card">
+            <div class="curiosidad-num">06</div>
+            <div class="curiosidad-title">Nominaciones al Grammy</div>
+            <div class="curiosidad-text">Los Premios Grammy tienen una categoría específica de "Mejor Álbum de Polka" desde 1986. Artistas como Jimmy Sturr han ganado el galardón más de 18 veces seguidas. La polka sigue siendo reconocida en la industria musical mundial.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIGURAS -->
+  <section class="figuras-section" id="figuras">
+    <div class="section-inner">
+      <div class="section-label">08 — Figuras Icónicas</div>
+      <div class="reveal">
+        <h2 class="big-heading">Quienes la<br><em>hicieron grande</em></h2>
+        <div class="figuras-grid">
+          <div class="figura-card">
+            <div class="figura-icon">🎹</div>
+            <div class="figura-name">Bedřich Smetana</div>
+            <div class="figura-country">República Checa · 1824–1884</div>
+            <div class="figura-desc">Padre de la música checa. Compuso decenas de polkas para piano y las inmortalizó en obras sinfónicas. Fue quien convirtió la danza popular en arte de concierto.</div>
+          </div>
+          <div class="figura-card">
+            <div class="figura-icon">🎸</div>
+            <div class="figura-name">Ramón Ayala</div>
+            <div class="figura-country">México (Tamaulipas) · 1945–presente</div>
+            <div class="figura-desc">"El Rey del Acordeón". Leyenda viva de la música norteña. Sus polkas como "Un año más" y "Tragos amargos" son patrimonio musical del norte de México.</div>
+          </div>
+          <div class="figura-card">
+            <div class="figura-icon">🪗</div>
+            <div class="figura-name">Los Cadetes de Linares</div>
+            <div class="figura-country">México (Nuevo León) · 1962–presente</div>
+            <div class="figura-desc">Grupo emblemático del norteño. Sus polkas y corridos definieron el sonido del conjunto norteño clásico y llevaron el género por toda América.</div>
+          </div>
+          <div class="figura-card">
+            <div class="figura-icon">🎺</div>
+            <div class="figura-name">Johann Strauss I</div>
+            <div class="figura-country">Austria · 1804–1849</div>
+            <div class="figura-desc">El rey del vals vienés adoptó la polka en sus famosos conciertos. Su popularización de la danza en los salones austríacos fue clave para su difusión europea.</div>
+          </div>
+          <div class="figura-card">
+            <div class="figura-icon">🎵</div>
+            <div class="figura-name">Paulka Raab</div>
+            <div class="figura-country">República Checa · Siglo XIX</div>
+            <div class="figura-desc">Maestro de baile que llevó la polka de Praga a París en 1840, desencadenando la "fiebre de la polka" que arrasó Europa en menos de dos años.</div>
+          </div>
+          <div class="figura-card">
+            <div class="figura-icon">🌟</div>
+            <div class="figura-name">Los Bravos del Norte</div>
+            <div class="figura-country">México (Nuevo León) · 1960–1991</div>
+            <div class="figura-desc">Pioneros del norteño moderno. Con Cornelio Reyna al frente, sus polkas románticas conquistaron al público urbano y abrieron el género a nuevas generaciones.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">La Polka</div>
+    <div class="footer-divider"></div>
+    <p class="footer-text">
+      Una exposición sobre el baile que cruzó océanos y fronteras<br>
+      para convertirse en el latido del norte de México.
+    </p>
+    <div class="footer-divider"></div>
+    <p class="footer-text" style="font-size:0.75rem; margin-top:0.5rem;">
+      ♩ ♪ ♫ ♬ &nbsp;&nbsp; Exposición Digital 2025 &nbsp;&nbsp; ♬ ♫ ♪ ♩
+    </p>
+  </footer>
+
+  <script>
+    // Intersection Observer for reveal animations
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Animated rhythm bars
+    const bars = document.querySelectorAll('.bar');
+    bars.forEach((bar, i) => {
+      const isStrong = bar.classList.contains('strong');
+      bar.style.height = isStrong ? '75%' : '35%';
+      setInterval(() => {
+        const h = isStrong
+          ? (Math.random() * 30 + 65) + '%'
+          : (Math.random() * 20 + 25) + '%';
+        bar.style.height = h;
+      }, isStrong ? 450 : 900);
+    });
+  </script>
+</body>
+</html>
